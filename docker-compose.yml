@@ -1,5 +1,5 @@
 services:
-  vaultwarden:
+  app:
     image: vaultwarden/server:latest
     restart: unless-stopped
     ports:
@@ -7,18 +7,15 @@ services:
     expose:
       - "80"
     environment:
-      DOMAIN: ${DOMAIN}
+      DOMAIN: ${APP_URL}
       SIGNUPS_ALLOWED: "false"
-      INVITATIONS_ALLOWED: "false"
-      ADMIN_TOKEN: ${ADMIN_TOKEN}
+      INVITATIONS_ALLOWED: "true"
+      ADMIN_TOKEN: ${ADMIN_PASSWORD}
       WEBSOCKET_ENABLED: "true"
+      IP_HEADER: X-Real-IP
+      LOG_LEVEL: warn
     volumes:
       - vaultwarden-data:/data
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1/alive >/dev/null || exit 1"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
 
 volumes:
   vaultwarden-data:
