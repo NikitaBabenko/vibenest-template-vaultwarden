@@ -8,12 +8,12 @@ services:
       - "80"
     environment:
       DOMAIN: ${APP_URL}
-      SIGNUPS_ALLOWED: "false"
-      INVITATIONS_ALLOWED: "true"
+      SIGNUPS_ALLOWED: ${SIGNUPS_ALLOWED:-false}
+      INVITATIONS_ALLOWED: ${INVITATIONS_ALLOWED:-true}
       ADMIN_TOKEN: ${ADMIN_PASSWORD}
-      WEBSOCKET_ENABLED: "true"
+      WEBSOCKET_ENABLED: ${WEBSOCKET_ENABLED:-true}
       IP_HEADER: X-Real-IP
-      LOG_LEVEL: warn
+      LOG_LEVEL: ${LOG_LEVEL:-warn}
     volumes:
       - vaultwarden-data:/data
 

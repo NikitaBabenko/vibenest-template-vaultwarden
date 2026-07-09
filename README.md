@@ -10,6 +10,9 @@ It does not fork or modify Vaultwarden. The wrapper only supplies VibeNest-safe 
 - public self-registration disabled by default;
 - invitations left enabled so the owner can create the first user from `/admin`;
 - generated `ADMIN_PASSWORD` passed as Vaultwarden `ADMIN_TOKEN`;
+- explicit `SIGNUPS_ALLOWED=false`, `INVITATIONS_ALLOWED=true`, `WEBSOCKET_ENABLED=true`
+  and `LOG_LEVEL=warn` defaults in `.env.example` so platform env sync can show and
+  preserve the security posture;
 - persistent `/data` volume.
 
 ## VibeNest notes
@@ -23,6 +26,14 @@ Smoke must verify:
 - anonymous/uninvited registration is blocked;
 - `/data` is persistent;
 - copy warns users to configure backups before storing real passwords.
+
+Current smoke notes:
+
+- VibeNest deploy reached `running`, Coolify reported `running:healthy` with
+  `restart_count=0`, and the public URL opened `<title page-title>Vaultwarden Web</title>`.
+- `/admin` returned `Vaultwarden Admin Panel` and the admin-token form.
+- An anonymous `/identity/accounts/register` request returned
+  `Registration not allowed or user already exists`.
 
 Security release notes:
 
